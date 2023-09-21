@@ -26,7 +26,7 @@ namespace Sc.Player
                 Die();
         }
 
-        public void Die()
+        private void Die()
         {
             Destroy(gameObject);
         }

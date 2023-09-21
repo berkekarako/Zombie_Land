@@ -14,7 +14,7 @@ namespace Sc.Player
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
-            //_animator = GetComponent<Animator>();
+            _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _collider2D = GetComponent<Collider2D>();
         }
@@ -22,6 +22,12 @@ namespace Sc.Player
         private void Update()
         {
             GetInput();
+            Flip();
+        }
+
+        private void LateUpdate()
+        {
+            Anim();
         }
 
         private void FixedUpdate()
@@ -53,5 +59,19 @@ namespace Sc.Player
         }
 
         #endregion
+
+        private void Anim()
+        {
+            _animator.SetFloat("Horz", Mathf.Abs(_horizontal));
+            _animator.SetFloat("Vert", Mathf.Abs(_vertical));
+        }
+
+        void Flip()
+        {
+            if(_horizontal > 0)
+                _spriteRenderer.flipX = false;
+            else if(_horizontal < 0)
+                _spriteRenderer.flipX = true;
+        }
     }
 }
