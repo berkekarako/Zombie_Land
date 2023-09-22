@@ -8,10 +8,10 @@ namespace Sc.Enemy
     public class Enemy : MonoBehaviour, IDamageable
     {
         protected Rigidbody2D Rb;
-        protected AIDestinationSetter AIDestinationSetter;
+        private AIDestinationSetter AIDestinationSetter;
         
         [Header("Health")]
-        [SerializeField] private float maxHealth = 100f;
+        [SerializeField] protected float maxHealth = 100f;
         public float CurrentHealth { get; set; }
         
         [Header("Movement")]

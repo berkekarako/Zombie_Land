@@ -1,6 +1,8 @@
 using System.Collections;
 using Sc.Player;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
 
 namespace Sc.Enemy
 {
@@ -9,8 +11,10 @@ namespace Sc.Enemy
         [Header("C/Attack")]
         [SerializeField] private float damage = 20;
         [SerializeField] private float attackDuration = 1f;
-        
         private bool _canAttack = true;
+        
+        [Header("C/Health")] 
+        [SerializeField] private Slider healthSlider;
         
         private void OnCollisionStay2D(Collision2D other)
         {
@@ -29,6 +33,13 @@ namespace Sc.Enemy
             _canAttack = true;
             AiPath.canMove = true;
             Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+
+        public override void TakeDamage(float damageCount)
+        {
+            base.TakeDamage(damageCount);
+            
+            healthSlider.value = CurrentHealth / maxHealth;
         }
     }
 }
