@@ -19,8 +19,6 @@ namespace Sc.Player
             _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _collider2D = GetComponent<Collider2D>();
-            
-            WeaponChange(circleSw);
         }
 
         private void Update()
@@ -46,9 +44,6 @@ namespace Sc.Player
             
             _horizontal = joystick.Horizontal;
             _vertical = joystick.Vertical;
-            
-            if(Input.GetKeyDown(KeyCode.Space))
-                Attack();
         }
 
         #region Movement
@@ -81,27 +76,6 @@ namespace Sc.Player
                 _spriteRenderer.flipX = false;
             else if(_horizontal < 0)
                 _spriteRenderer.flipX = true;
-        }
-        
-        #endregion
-
-        #region Attack
-
-        [Header("Attack")] [SerializeField] private WeaponBase weaponBase;
-        [SerializeField] private LayerMask enemyLayer;
-        
-        [SerializeField] private CircleSw circleSw;
-        [SerializeField] private Bow bow;
-
-        public void WeaponChange(WeaponBase newWeapon) // eğer silahı değiştirmek istyosan bunu kullan
-        {
-            weaponBase = newWeapon;
-            weaponBase.changeEvent.Invoke();
-        }
-        
-        public void Attack()
-        {
-            weaponBase.Attack(enemyLayer);
         }
         
         #endregion

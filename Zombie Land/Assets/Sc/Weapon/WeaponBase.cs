@@ -12,5 +12,15 @@ namespace Sc.Weapon
         {
             print("Attack");
         }
+
+        public virtual void Equip()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public virtual void UnEquip()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
