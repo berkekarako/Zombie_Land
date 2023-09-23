@@ -10,7 +10,7 @@ namespace Sc.Player
     public class WeaponSystem : MonoBehaviour
     {
         public List<WeaponBase> weapons;
-        [SerializeField] private WeaponBase currentWeapon = null;
+        public WeaponBase currentWeapon = null;
         [SerializeField] private int maxWeapon = 3;
         [SerializeField] private LayerMask itemLayer;
         [SerializeField] private LayerMask enemyLayer;
@@ -22,6 +22,11 @@ namespace Sc.Player
         private void Start()
         {
             ChangeWeapon(weapons[0]);
+        }
+
+        private void Update()
+        {
+            currentWeapon.OnUpdate();
         }
 
         public void Attack()

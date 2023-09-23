@@ -1,3 +1,5 @@
+using System;
+using Sc.Player;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,6 +9,8 @@ namespace Sc.Weapon
     {
         [SerializeField] protected float damage;
         public UnityEvent changeEvent;
+        
+        private WeaponSystem _weaponSystem;
         
         public virtual void Attack(LayerMask enemyLayer)
         {
@@ -18,6 +22,8 @@ namespace Sc.Weapon
             gameObject.SetActive(true);
         }
 
+        public virtual void OnUpdate() {}
+        
         public virtual void UnEquip()
         {
             gameObject.SetActive(false);

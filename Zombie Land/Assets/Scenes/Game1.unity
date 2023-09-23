@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 58964814}
   - component: {fileID: 58964815}
   - component: {fileID: 58964818}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &164651801
 Transform:
   m_ObjectHideFlags: 0
@@ -577,11 +577,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8763841918440800040, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1215,11 +1215,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8763841918440800040, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2237,11 +2237,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8763841918440800040, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2400,11 +2400,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8763841918440800040, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2481,11 +2481,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8763841918440800040, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2788,25 +2788,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1359684953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9629d4591895aa4e960d8e24cb0213a, type: 3}
+  m_Script: {fileID: 11500000, guid: 512f405d6b79c7f4e8d17e5631673311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 5
   changeEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2929252283153961283}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 612134940}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -2819,6 +2807,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2929252283153961283}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  ammoCount: 50
+  maxArrowSpeed: 20
+  maxChargeTime: 2
+  arrowPrefab: {fileID: 6628207526428762139, guid: 9d096f8acf71a3f46a2f3efd7008c0b8, type: 3}
+  attackJoystick: {fileID: 2929252283153961295}
 --- !u!1 &1373520294
 GameObject:
   m_ObjectHideFlags: 0
@@ -2967,6 +2972,7 @@ GameObject:
   - component: {fileID: 1404238722}
   - component: {fileID: 1404238721}
   - component: {fileID: 1404238725}
+  - component: {fileID: 1404238726}
   m_Layer: 0
   m_Name: ---CAMERA---
   m_TagString: MainCamera
@@ -3105,6 +3111,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+--- !u!114 &1404238726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404238720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ea1322ccae94c458f3b9f74999885f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1449584173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3159,11 +3177,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8763841918440800040, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3531,11 +3549,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4305464839845523593, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8763841918440800040, guid: 28b282c4beb21da43b5f0a2dfdb55de1, type: 3}
       propertyPath: m_AnchorMax.x
