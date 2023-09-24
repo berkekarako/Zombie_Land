@@ -45,6 +45,7 @@ namespace Sc.Player
         public void InteractItem()
         {
             Collider2D asd = Physics2D.OverlapCircle(transform.position, 3f, itemLayer);
+            print(asd.name);
             asd.GetComponent<IInteractable>().Interact();
             interactItemUI.SetActive(false);
         }

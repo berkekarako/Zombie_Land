@@ -48,5 +48,11 @@ namespace Sc.Weapon.Weapons
             
             ammoCount--;
         }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            SetChargeRime();
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace Sc.Weapon.Weapons.Bows
         public override void OnUpdate()
         {
             base.OnUpdate();
-            SetChargeRime();
             print("Normal Bow");
         }
     }
