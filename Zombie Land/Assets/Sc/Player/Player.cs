@@ -39,11 +39,11 @@ namespace Sc.Player
 
         private void GetInput()
         {
-            //_horizontal = Input.GetAxisRaw("Horizontal");
-            //_vertical = Input.GetAxisRaw("Vertical");
+            _horizontal = Input.GetAxisRaw("Horizontal");
+            _vertical = Input.GetAxisRaw("Vertical");
             
-            _horizontal = joystick.Horizontal;
-            _vertical = joystick.Vertical;
+            //_horizontal = joystick.Horizontal;
+            //_vertical = joystick.Vertical;
         }
 
         #region Movement
