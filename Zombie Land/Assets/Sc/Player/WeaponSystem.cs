@@ -71,6 +71,26 @@ namespace Sc.Player
                 item.isPickedUp = true;
                 item.gameObject.GetComponent<Collider2D>().enabled = false;
             }
+            else
+            {
+                weapons.Remove(currentWeapon);
+                currentWeapon.transform.SetParent(null);
+                currentWeapon.gameObject.SetActive(true);
+                
+                currentWeapon.gameObject.GetComponent<Collider2D>().enabled = true;
+                currentWeapon.GetComponent<Item>().isPickedUp = false;
+                
+                currentWeapon = null;
+                
+                weapons.Add(newWeapon);
+                ChangeWeapon(newWeapon);
+                
+                newWeapon.transform.SetParent(weaponsObj.transform);
+                newWeapon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+                
+                item.isPickedUp = true;
+                item.gameObject.GetComponent<Collider2D>().enabled = false;
+            }
         }
     }
 }

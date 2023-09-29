@@ -7,7 +7,6 @@ namespace Sc.Weapon
 {
     public class WeaponBase : MonoBehaviour
     {
-        [SerializeField] protected float damage;
         public UnityEvent changeEvent;
         
         private WeaponSystem _weaponSystem;

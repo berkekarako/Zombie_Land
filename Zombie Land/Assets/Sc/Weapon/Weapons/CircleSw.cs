@@ -1,22 +1,24 @@
 using System.Collections;
+using Sc.GeneralSystem;
 using Sc.Interfaces;
 using UnityEngine;
 
 namespace Sc.Weapon.Weapons
 {
-    public class CircleSw : WeaponBase
+    public class CircleSw : Swords
     {
         [SerializeField] private float rad = 2f;
         [SerializeField] private GameObject attackLight;
+        
+        private Collider2D[] _hits = new Collider2D[5];
 
         public override void Attack(LayerMask enemyLayer)
         {
             base.Attack(enemyLayer);
 
-            Collider2D hit = Physics2D.OverlapCircle(transform.position, rad, enemyLayer);
+            Physics2D.OverlapCircleNonAlloc(transform.position, rad, _hits, enemyLayer);
 
-            if(hit)
-                hit.GetComponent<IDamageable>()?.TakeDamage(damage);
+            HealthDamageSys.TakeDamage(_hits, damage);
             
             StartCoroutine(AttackLight());
         }
