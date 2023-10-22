@@ -17,7 +17,7 @@ namespace Sc.Player
         {
             if (other.TryGetComponent(out IInteractable iInteractable))
             {
-                interactItemUI.SetActive(true); // HATALI YAKINLAŞINCA ALMASINI YAP
+                interactItemUI.SetActive(true);
                 _interactableCount++;
             }
         }

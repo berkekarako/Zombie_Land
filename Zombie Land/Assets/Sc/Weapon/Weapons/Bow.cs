@@ -1,4 +1,5 @@
 using System;
+using Sc.GeneralSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,30 +11,39 @@ namespace Sc.Weapon.Weapons
         [SerializeField] private float maxArrowSpeed = 20;
         [SerializeField] private float maxChargeTime = 2;
         [SerializeField] private GameObject arrowPrefab;
-        [SerializeField] private FixedJoystick attackJoystick;
 
+        private FixedJoystick _attackJoystick;
         private float _chargeTime = -0.01f;
 
         private Vector2 _previousJoystickDir;
-        
-        protected void SetChargeRime()
+
+        public override void Equip()
         {
-            if (attackJoystick.Direction != Vector2.zero)
+            base.Equip();
+            
+            _attackJoystick = JoystickSystem.Instance.attackJoystick;
+        }
+
+        protected void SetChargeTime()
+        {
+            if (_attackJoystick.Direction != Vector2.zero)
             {
                 _chargeTime += Time.deltaTime;
             }
             
-            if(_chargeTime > 0 && attackJoystick.Direction == Vector2.zero)
+            if(_chargeTime > 0 && _attackJoystick.Direction == Vector2.zero)
             {
-                FireArrow();
+                Attack();
                 _chargeTime = 0;
             }
             
-            _previousJoystickDir = attackJoystick.Direction;
+            _previousJoystickDir = _attackJoystick.Direction;
         }
 
-        protected virtual void FireArrow()
+        public override void Attack()
         {
+            base.Attack();
+            
             if(ammoCount <= 0) return;
             var clamp = Mathf.Clamp(_chargeTime, 0, maxChargeTime);
             
@@ -52,7 +62,8 @@ namespace Sc.Weapon.Weapons
         public override void OnUpdate()
         {
             base.OnUpdate();
-            SetChargeRime();
+            
+            SetChargeTime();
         }
     }
 }
