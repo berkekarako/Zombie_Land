@@ -1,6 +1,7 @@
 using Pathfinding;
 using Sc.Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sc.Enemy
 {
@@ -12,6 +13,7 @@ namespace Sc.Enemy
         
         [Header("Health")]
         [SerializeField] protected float maxHealth = 100f;
+        [SerializeField] protected Slider healthSlider;
         public float CurrentHealth { get; set; }
         
         [Header("Movement")]
@@ -24,7 +26,7 @@ namespace Sc.Enemy
             Rb = GetComponent<Rigidbody2D>();
 
             AIDestinationSetter = GetComponent<AIDestinationSetter>();
-            AIDestinationSetter.target = GameObject.FindGameObjectWithTag("Player").transform;
+            AIDestinationSetter.target = Player.Player.Instance.transform;
             
             AiPath.maxSpeed = speed;
             CurrentHealth = maxHealth;

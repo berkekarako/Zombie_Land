@@ -1,4 +1,5 @@
 using System;
+using Sc.GeneralSystem;
 using Sc.Weapon;
 using Sc.Weapon.Weapons;
 using UnityEngine;
@@ -7,18 +8,34 @@ namespace Sc.Player
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] private FixedJoystick joystick;
+        public static  Player Instance { get; private set; }
+        
         private Rigidbody2D _rb;
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
         private Collider2D _collider2D;
-
-        private void Start()
+        
+        public PlayerHealth PlayerHealth { get; private set; }
+        public WeaponSystem WeaponSystem { get; private set; }
+        
+        private FixedJoystick _joystick;
+        
+        private void Awake()
         {
+            Instance = this;
+            
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _collider2D = GetComponent<Collider2D>();
+            
+            PlayerHealth = GetComponent<PlayerHealth>();
+            WeaponSystem = GetComponent<WeaponSystem>();
+        }
+
+        private void Start()
+        {
+            _joystick = JoystickSystem.Instance.movementJoystick;
         }
 
         private void Update()
@@ -39,11 +56,11 @@ namespace Sc.Player
 
         private void GetInput()
         {
-            _horizontal = Input.GetAxisRaw("Horizontal");
-            _vertical = Input.GetAxisRaw("Vertical");
+            //_horizontal = Input.GetAxisRaw("Horizontal");
+            //_vertical = Input.GetAxisRaw("Vertical");
             
-            //_horizontal = joystick.Horizontal;
-            //_vertical = joystick.Vertical;
+            _horizontal = _joystick.Horizontal;
+            _vertical = _joystick.Vertical;
         }
 
         #region Movement

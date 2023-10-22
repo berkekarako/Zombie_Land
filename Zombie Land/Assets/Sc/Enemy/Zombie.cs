@@ -13,19 +13,17 @@ namespace Sc.Enemy
         [SerializeField] private float attackDuration = 1f;
         private bool _canAttack = true;
         
-        [Header("C/Health")] 
-        [SerializeField] private Slider healthSlider;
-        
         private void OnCollisionStay2D(Collision2D other)
         {
             if (_canAttack && other.gameObject.CompareTag("Player"))
-                StartCoroutine(Attack(other.gameObject));
+                StartCoroutine(Attack());
         }
         
-        private IEnumerator Attack(GameObject player)
+        private IEnumerator Attack()
         {
             _canAttack = false;
-            player.GetComponent<PlayerHealth>().TakeDamage(damage);
+            
+            Player.Player.Instance.PlayerHealth.TakeDamage(damage);
             AiPath.canMove = false;
             Rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
