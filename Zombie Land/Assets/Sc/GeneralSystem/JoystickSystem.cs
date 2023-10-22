@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 namespace Sc.GeneralSystem
@@ -11,6 +12,8 @@ namespace Sc.GeneralSystem
         public FixedJoystick movementJoystick;
         public FixedJoystick attackJoystick;
         public Button attackButton;
+        public Slider playerReloadSlider;
+        public Image playerReloadImage;
         
         private void Awake()
         {

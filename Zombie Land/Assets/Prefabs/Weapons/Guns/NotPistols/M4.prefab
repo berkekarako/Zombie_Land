@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6543299591618348385
 SpriteRenderer:
@@ -156,5 +156,4 @@ MonoBehaviour:
   maxMagazine: 30
   changingMagazineTime: 3
   fireTime: 0.08
-  joystick: {fileID: 0}
   bullet: {fileID: 4133105187970758362, guid: 3208596f1d73939468edb6ed77cf20d1, type: 3}

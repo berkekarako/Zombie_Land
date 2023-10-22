@@ -1,5 +1,7 @@
+using System.Collections;
 using Sc.GeneralSystem;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Sc.Weapon.Weapons
 {
@@ -33,17 +35,21 @@ namespace Sc.Weapon.Weapons
             if(_currentAmmoCount == 0)
             {
                 _isChanging = true;
-                Invoke(nameof(ChangeMagazine), changingMagazineTime);
+                StartCoroutine(ChangeMagazine());
             }
         }
 
         public override void UnEquip()
         {
             base.UnEquip();
+            
+            print("Kapat");
 
             if (_isChanging)
             {
-                CancelInvoke(nameof(ChangeMagazine));
+                _isChanging = false;
+                StopCoroutine(ChangeMagazine());
+                SetReloadAnim(false);
             }
         }
 
@@ -55,9 +61,8 @@ namespace Sc.Weapon.Weapons
                 _lastFireTime = Time.time;
             }
             else if (_currentAmmoCount == 0 && !_isChanging)
-            {
-                _isChanging = true;
-                Invoke(nameof(ChangeMagazine), changingMagazineTime);
+            { 
+                StartCoroutine(ChangeMagazine());
             }
         }
 
@@ -76,9 +81,15 @@ namespace Sc.Weapon.Weapons
             
             _currentAmmoCount--;
         }
-
-        protected virtual void ChangeMagazine()
+        
+        protected virtual IEnumerator ChangeMagazine()
         {
+            _isChanging = true;
+            
+            SetReloadAnim(true);
+            
+            yield return new WaitForSeconds(changingMagazineTime);
+            
             if (maxAmmoCount >= maxMagazine)
             {
                 _currentAmmoCount = maxMagazine;
@@ -91,6 +102,30 @@ namespace Sc.Weapon.Weapons
             }
             
             _isChanging = false;
+        }
+
+        private void SetReloadAnim(bool val)
+        {
+            JoystickSystem.Instance.playerReloadSlider.value = 0;
+                
+            if (val)
+            {
+                JoystickSystem.Instance.playerReloadImage.color = Color.cyan;
+                JoystickSystem.Instance.playerReloadSlider.gameObject.SetActive(true);
+                JoystickSystem.Instance.playerReloadSlider.DOValue(0.9f, changingMagazineTime * 0.9f).OnComplete(() =>
+                {
+                    JoystickSystem.Instance.playerReloadImage.color = Color.yellow;
+                    JoystickSystem.Instance.playerReloadSlider.DOValue(1, changingMagazineTime * 0.1f)
+                        .OnComplete(() =>
+                        {
+                            JoystickSystem.Instance.playerReloadSlider.gameObject.SetActive(false);
+                        });
+                });
+            }
+            else
+            {
+                JoystickSystem.Instance.playerReloadSlider.gameObject.SetActive(false);
+            }
         }
     }
 }
