@@ -31,12 +31,12 @@ namespace Sc.Player
 
         public void Attack()
         {
-            currentWeapon.Attack();
+            currentWeapon.Attack(enemyLayer);
         }
 
         public void GoToNextWeapon()
         {
-            var index = weapons.IndexOf(currentWeapon);
+            int index = weapons.IndexOf(currentWeapon);
             index++;
             if(index >= weapons.Count) index = 0;
             ChangeWeapon(weapons[index]);
@@ -44,20 +44,9 @@ namespace Sc.Player
 
         public void InteractItem()
         {
-            var asd = new Collider2D[2];
-            Physics2D.OverlapCircleNonAlloc(transform.position, 3f, asd, itemLayer);
-            
-            if (asd[0].gameObject != currentWeapon.gameObject)
-            {
-                print(asd[0].name);
-                asd[0].GetComponent<IInteractable>().Interact();
-            }
-            else
-            {
-                print(asd[1].name);
-                asd[1].GetComponent<IInteractable>().Interact();
-            }
-            
+            Collider2D asd = Physics2D.OverlapCircle(transform.position, 3f, itemLayer);
+            print(asd.name);
+            asd.GetComponent<IInteractable>().Interact();
             interactItemUI.SetActive(false);
         }
 
@@ -69,7 +58,7 @@ namespace Sc.Player
             currentWeapon.Equip();
         }
 
-        public void AddWeapon(WeaponItem item, WeaponBase newWeapon)
+        public void AddWeapon(Item item, WeaponBase newWeapon)
         {
             if (weapons.Count < maxWeapon)
             {
@@ -89,7 +78,7 @@ namespace Sc.Player
                 currentWeapon.gameObject.SetActive(true);
                 
                 currentWeapon.gameObject.GetComponent<Collider2D>().enabled = true;
-                currentWeapon.GetComponent<WeaponItem>().isPickedUp = false;
+                currentWeapon.GetComponent<Item>().isPickedUp = false;
                 
                 currentWeapon = null;
                 

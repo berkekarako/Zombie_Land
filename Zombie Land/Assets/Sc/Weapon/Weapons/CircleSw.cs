@@ -12,9 +12,9 @@ namespace Sc.Weapon.Weapons
         
         private Collider2D[] _hits = new Collider2D[5];
 
-        public override void Attack()
+        public override void Attack(LayerMask enemyLayer)
         {
-            base.Attack();
+            base.Attack(enemyLayer);
 
             Physics2D.OverlapCircleNonAlloc(transform.position, rad, _hits, enemyLayer);
 

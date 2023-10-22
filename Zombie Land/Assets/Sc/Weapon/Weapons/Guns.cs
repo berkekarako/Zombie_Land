@@ -1,4 +1,3 @@
-using Sc.GeneralSystem;
 using UnityEngine;
 
 namespace Sc.Weapon.Weapons
@@ -10,10 +9,10 @@ namespace Sc.Weapon.Weapons
         [SerializeField] private int maxMagazine = 15;
         [SerializeField] private float changingMagazineTime = 1;
         [SerializeField] private float fireTime = 1/25f;
+        [SerializeField] private FixedJoystick joystick;
         [SerializeField] private GameObject bullet;
         
         private float _lastFireTime;
-        private FixedJoystick _joystick;
 
         private int _currentAmmoCount;
         private bool _isChanging;
@@ -24,34 +23,12 @@ namespace Sc.Weapon.Weapons
             TakeControl();
         }
 
-        public override void Equip()
-        {
-            base.Equip();
-            
-            _joystick = JoystickSystem.Instance.attackJoystick;
-            
-            if(_currentAmmoCount == 0)
-            {
-                _isChanging = true;
-                Invoke(nameof(ChangeMagazine), changingMagazineTime);
-            }
-        }
-
-        public override void UnEquip()
-        {
-            base.UnEquip();
-
-            if (_isChanging)
-            {
-                CancelInvoke(nameof(ChangeMagazine));
-            }
-        }
 
         void TakeControl()
         {
-            if (_joystick.Direction != Vector2.zero && Time.time > _lastFireTime + fireTime && _currentAmmoCount > 0)
+            if (joystick.Direction != Vector2.zero && Time.time > _lastFireTime + fireTime && _currentAmmoCount > 0)
             {
-                Attack();
+                Fire();
                 _lastFireTime = Time.time;
             }
             else if (_currentAmmoCount == 0 && !_isChanging)
@@ -61,15 +38,13 @@ namespace Sc.Weapon.Weapons
             }
         }
 
-        public override void Attack()
+        protected virtual void Fire()
         {
-            base.Attack();
-            
-            var angle = Mathf.Atan2(_joystick.Direction.y, _joystick.Direction.x) * Mathf.Rad2Deg;
+            var angle = Mathf.Atan2(joystick.Direction.y, joystick.Direction.x) * Mathf.Rad2Deg;
             if (angle < 0)
                 angle += 360;
             
-            var newBullet = Instantiate(bullet, transform.position, 
+            var newBullet = Instantiate(bullet, transform.position,
                 Quaternion.Euler(new Vector3(0, 0, angle)));
             
             newBullet.GetComponent<Rigidbody2D>().velocity = newBullet.transform.right * speed;
