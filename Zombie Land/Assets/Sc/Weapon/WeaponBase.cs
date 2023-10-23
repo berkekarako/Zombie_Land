@@ -43,7 +43,7 @@ namespace Sc.Weapon
 
         private void SetWeaponUseType()
         {
-            JoystickSystem.SetAttackJoystick(weaponUseType != WeaponUseType.Button);
+            CUISystem.SetAttackJoystick(weaponUseType != WeaponUseType.Button);
         }
     }
 }

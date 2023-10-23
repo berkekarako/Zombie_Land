@@ -2,6 +2,7 @@ using System.Collections;
 using Sc.GeneralSystem;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 namespace Sc.Weapon.Weapons
 {
@@ -14,53 +15,63 @@ namespace Sc.Weapon.Weapons
         [SerializeField] private float fireTime = 1/25f;
         [SerializeField] private GameObject bullet;
         
+        private Slider _reloadSlider;
+        
         private float _lastFireTime;
         private FixedJoystick _joystick;
 
         private int _currentAmmoCount;
         private bool _isChanging;
+        
+        private Tween _reloadSliderTween;
+        private float _angle;
 
         public override void OnUpdate()
         {
-            base.OnUpdate();
             TakeControl();
-        }
+        }   
 
         public override void Equip()
         {
             base.Equip();
             
-            _joystick = JoystickSystem.Instance.attackJoystick;
+            transform.eulerAngles = Vector3.zero;
             
-            if(_currentAmmoCount == 0)
-            {
-                _isChanging = true;
-                StartCoroutine(ChangeMagazine());
-            }
+            _joystick = CUISystem.Instance.attackJoystick;
+            _reloadSlider = CUISystem.Instance.playerReloadSlider;
+            
+            _reloadSlider.gameObject.SetActive(true);
+            
+            CheckReloadSlider();
+            
+            if(_currentAmmoCount == 0 && maxAmmoCount > 0) StartCoroutine(ChangeMagazine());
         }
 
         public override void UnEquip()
         {
             base.UnEquip();
-            
-            print("Kapat");
 
+            _reloadSlider.gameObject.SetActive(false);
+                
             if (_isChanging)
             {
                 _isChanging = false;
                 StopCoroutine(ChangeMagazine());
-                SetReloadAnim(false);
+                _reloadSliderTween.Kill();
             }
         }
 
         void TakeControl()
         {
+            SetDirection();
+            
             if (_joystick.Direction != Vector2.zero && Time.time > _lastFireTime + fireTime && _currentAmmoCount > 0)
             {
                 Attack();
                 _lastFireTime = Time.time;
             }
-            else if (_currentAmmoCount == 0 && !_isChanging)
+            
+            else if (_currentAmmoCount == 0 && !_isChanging && maxAmmoCount > 0)
             { 
                 StartCoroutine(ChangeMagazine());
             }
@@ -68,25 +79,23 @@ namespace Sc.Weapon.Weapons
 
         public override void Attack()
         {
-            base.Attack();
             
-            var angle = Mathf.Atan2(_joystick.Direction.y, _joystick.Direction.x) * Mathf.Rad2Deg;
-            if (angle < 0)
-                angle += 360;
             
             var newBullet = Instantiate(bullet, transform.position, 
-                Quaternion.Euler(new Vector3(0, 0, angle)));
+                Quaternion.Euler(new Vector3(0, 0, _angle)));
             
             newBullet.GetComponent<Rigidbody2D>().velocity = newBullet.transform.right * speed;
             
             _currentAmmoCount--;
+
+            CheckReloadSlider();
         }
         
         protected virtual IEnumerator ChangeMagazine()
         {
             _isChanging = true;
             
-            SetReloadAnim(true);
+            PlayReloadAnim();
             
             yield return new WaitForSeconds(changingMagazineTime);
             
@@ -101,30 +110,55 @@ namespace Sc.Weapon.Weapons
                 maxAmmoCount = 0;
             }
             
+            CheckReloadSlider();
+            
             _isChanging = false;
         }
 
-        private void SetReloadAnim(bool val)
+        private void PlayReloadAnim()
         {
-            JoystickSystem.Instance.playerReloadSlider.value = 0;
+            _reloadSlider.value = 0;
+            
+            CUISystem.Instance.playerReloadImage.color = Color.green;
                 
-            if (val)
+            _reloadSliderTween = _reloadSlider.DOValue(0.9f, changingMagazineTime * 0.9f).OnComplete(() =>
+            {   
+                CUISystem.Instance.playerReloadImage.color = Color.yellow;
+                _reloadSlider.DOValue(1, changingMagazineTime * 0.1f)
+                    .OnComplete(() =>
+                    {
+                        CUISystem.Instance.playerReloadImage.color = Color.cyan;
+                    });
+            });
+        }
+
+        private void PlayNoMagazineAnim()
+        {
+            _reloadSlider.value = 1;
+            CUISystem.Instance.playerReloadImage.color = Color.red;
+        }
+        
+        private void CheckReloadSlider()
+        {
+            if (_currentAmmoCount == 0)
             {
-                JoystickSystem.Instance.playerReloadImage.color = Color.cyan;
-                JoystickSystem.Instance.playerReloadSlider.gameObject.SetActive(true);
-                JoystickSystem.Instance.playerReloadSlider.DOValue(0.9f, changingMagazineTime * 0.9f).OnComplete(() =>
-                {
-                    JoystickSystem.Instance.playerReloadImage.color = Color.yellow;
-                    JoystickSystem.Instance.playerReloadSlider.DOValue(1, changingMagazineTime * 0.1f)
-                        .OnComplete(() =>
-                        {
-                            JoystickSystem.Instance.playerReloadSlider.gameObject.SetActive(false);
-                        });
-                });
+                if(maxAmmoCount <= 0) PlayNoMagazineAnim();
             }
             else
             {
-                JoystickSystem.Instance.playerReloadSlider.gameObject.SetActive(false);
+                _reloadSlider.value = _currentAmmoCount * 100 / (float)maxMagazine / 100;
+                CUISystem.Instance.playerReloadImage.color = Color.cyan;
+            }
+        }
+
+        private void SetDirection()
+        {
+            if (_joystick.Direction != Vector2.zero)
+            {
+                _angle = Mathf.Atan2(_joystick.Direction.y, _joystick.Direction.x) * Mathf.Rad2Deg;
+                if (_angle < 0)
+                    _angle += 360;
+                transform.eulerAngles = new Vector3(0, 0, _angle);
             }
         }
     }

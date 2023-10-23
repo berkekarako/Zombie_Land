@@ -21,7 +21,7 @@ namespace Sc.Weapon.Weapons
         {
             base.Equip();
             
-            _attackJoystick = JoystickSystem.Instance.attackJoystick;
+            _attackJoystick = CUISystem.Instance.attackJoystick;
         }
 
         protected void SetChargeTime()

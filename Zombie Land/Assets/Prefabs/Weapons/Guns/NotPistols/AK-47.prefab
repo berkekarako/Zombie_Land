@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1340568135386715928
 SpriteRenderer:
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300000, guid: 6d645346bd1ec6441a7835c2936e3bfa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -156,5 +156,4 @@ MonoBehaviour:
   maxMagazine: 30
   changingMagazineTime: 3
   fireTime: 0.1
-  joystick: {fileID: 0}
   bullet: {fileID: 4133105187970758362, guid: 3208596f1d73939468edb6ed77cf20d1, type: 3}

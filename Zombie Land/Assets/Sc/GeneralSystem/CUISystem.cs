@@ -5,9 +5,9 @@ using Button = UnityEngine.UI.Button;
 
 namespace Sc.GeneralSystem
 {
-    public class JoystickSystem : MonoBehaviour
+    public class CUISystem : MonoBehaviour
     {
-        public static JoystickSystem Instance { get; private set; }
+        public static CUISystem Instance { get; private set; }
 
         public FixedJoystick movementJoystick;
         public FixedJoystick attackJoystick;

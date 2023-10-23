@@ -35,7 +35,7 @@ namespace Sc.Player
 
         private void Start()
         {
-            _joystick = JoystickSystem.Instance.movementJoystick;
+            _joystick = CUISystem.Instance.movementJoystick;
         }
 
         private void Update()

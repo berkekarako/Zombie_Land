@@ -108214,6 +108214,10 @@ PrefabInstance:
       propertyPath: joystick
       value: 
       objectReference: {fileID: 2929252283153961295}
+    - target: {fileID: 8746876034916053323, guid: 1d0091d3c872ee5488f22cb40a49e9ff, type: 3}
+      propertyPath: maxAmmoCount
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
